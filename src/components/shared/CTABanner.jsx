@@ -23,7 +23,7 @@ export default function CTABanner({
               </Button>
             </Link>
             <a href="tel:+390000000000">
-              <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 gap-2">
+              <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground gap-2">
                 <Phone className="h-4 w-4" /> {secondaryLabel}
               </Button>
             </a>

@@ -55,7 +55,7 @@ export default function HeroSection() {
               </Button>
             </Link>
             <Link to="/servizi">
-              <Button size="lg" variant="outline" className="border-primary-foreground/25 text-primary-foreground hover:bg-primary-foreground/10 gap-2 text-base px-8 h-12">
+              <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground/25 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground gap-2 text-base px-8 h-12">
                 Scopri i servizi
               </Button>
             </Link>
