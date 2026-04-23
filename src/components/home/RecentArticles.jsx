@@ -1,14 +1,10 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar } from 'lucide-react';
-import { useQuery } from '@tanstack/react-query';
-import { base44 } from '@/api/base44Client';
+import { articles as allArticles } from '@/lib/content';
 import SectionHeader from '../shared/SectionHeader';
 
 export default function RecentArticles() {
-  const { data: articles = [] } = useQuery({
-    queryKey: ['articles-recent'],
-    queryFn: () => base44.entities.Article.filter({ published: true }, '-publish_date', 3),
-  });
+  const articles = allArticles.slice(0, 3);
 
   if (articles.length === 0) {
     return (

@@ -1,27 +1,17 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Calendar, User, Tag } from 'lucide-react';
-import { useQuery } from '@tanstack/react-query';
-import { base44 } from '@/api/base44Client';
+import { articles as allArticles } from '@/lib/content';
 import CTABanner from '../components/shared/CTABanner';
 
 export default function BlogArticle() {
-  const urlParams = new URLSearchParams(window.location.search);
   const slug = window.location.pathname.split('/blog/')[1];
 
-  const { data: articles = [], isLoading } = useQuery({
-    queryKey: ['article', slug],
-    queryFn: () => base44.entities.Article.filter({ slug, published: true }),
-  });
+  const isLoading = false;
+  const article = allArticles.find((a) => a.slug === slug);
 
-  const article = articles[0];
-
-  const { data: related = [] } = useQuery({
-    queryKey: ['related-articles', article?.category],
-    queryFn: () => base44.entities.Article.filter({ category: article.category, published: true }, '-publish_date', 4),
-    enabled: !!article?.category,
-  });
-
-  const relatedFiltered = related.filter((a) => a.id !== article?.id).slice(0, 3);
+  const relatedFiltered = article
+    ? allArticles.filter((a) => a.category === article.category && a.id !== article.id).slice(0, 3)
+    : [];
 
   if (isLoading) {
     return (

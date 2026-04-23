@@ -1,7 +1,5 @@
-import { Link } from 'react-router-dom';
-import { AlertTriangle, ArrowRight } from 'lucide-react';
-import { useQuery } from '@tanstack/react-query';
-import { base44 } from '@/api/base44Client';
+import { AlertTriangle } from 'lucide-react';
+import { caseStudies as dynamicCases } from '@/lib/content';
 import CTABanner from '../components/shared/CTABanner';
 
 const staticCases = [
@@ -53,12 +51,7 @@ const staticCases = [
 ];
 
 export default function CasiReali() {
-  const { data: dynamicCases = [] } = useQuery({
-    queryKey: ['case-studies'],
-    queryFn: () => base44.entities.CaseStudy.filter({ published: true }, '-created_date', 50),
-  });
-
-  const allCases = [...dynamicCases, ...(dynamicCases.length === 0 ? staticCases : [])];
+  const allCases = dynamicCases.length > 0 ? dynamicCases : staticCases;
 
   return (
     <>

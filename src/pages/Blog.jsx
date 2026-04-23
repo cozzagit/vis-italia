@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, ArrowRight, Search } from 'lucide-react';
-import { useQuery } from '@tanstack/react-query';
-import { base44 } from '@/api/base44Client';
+import { articles as allArticles } from '@/lib/content';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
@@ -12,13 +11,8 @@ export default function Blog() {
   const [category, setCategory] = useState('Tutti');
   const [search, setSearch] = useState('');
 
-  const { data: articles = [], isLoading } = useQuery({
-    queryKey: ['articles', category],
-    queryFn: () => {
-      if (category === 'Tutti') return base44.entities.Article.filter({ published: true }, '-publish_date', 50);
-      return base44.entities.Article.filter({ published: true, category }, '-publish_date', 50);
-    },
-  });
+  const isLoading = false;
+  const articles = category === 'Tutti' ? allArticles : allArticles.filter((a) => a.category === category);
 
   const filtered = articles.filter((a) =>
     search === '' || a.title.toLowerCase().includes(search.toLowerCase()) || a.summary?.toLowerCase().includes(search.toLowerCase())

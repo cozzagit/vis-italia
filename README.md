@@ -1,39 +1,36 @@
-**Welcome to your Base44 project** 
+# VIS ITALIA
 
-**About**
+Sito istituzionale di VIS ITALIA — sicurezza scaffalature e magazzini industriali.
 
-View and Edit  your app on [Base44.com](http://Base44.com) 
+## Stack
 
-This project contains everything you need to run your app locally.
+- Vite + React 18
+- Tailwind CSS + shadcn/ui
+- react-router-dom (BrowserRouter)
+- @tanstack/react-query (usata per futuri fetch lato client)
 
-**Edit the code in your local development environment**
+## Sviluppo locale
 
-Any change pushed to the repo will also be reflected in the Base44 Builder.
-
-**Prerequisites:** 
-
-1. Clone the repository using the project's Git URL 
-2. Navigate to the project directory
-3. Install dependencies: `npm install`
-4. Create an `.env.local` file and set the right environment variables
-
-```
-VITE_BASE44_APP_ID=your_app_id
-VITE_BASE44_APP_BASE_URL=your_backend_url
-
-e.g.
-VITE_BASE44_APP_ID=cbef744a8545c389ef439ea6
-VITE_BASE44_APP_BASE_URL=https://my-to-do-list-81bfaad7.base44.app
+```bash
+npm install
+npm run dev
 ```
 
-Run the app: `npm run dev`
+## Build produzione
 
-**Publish your changes**
+```bash
+npm run build
+```
 
-Open [Base44.com](http://Base44.com) and click on Publish.
+Output in `dist/`. Servire come sito statico (nginx).
 
-**Docs & Support**
+## Contenuti dinamici
 
-Documentation: [https://docs.base44.com/Integrations/Using-GitHub](https://docs.base44.com/Integrations/Using-GitHub)
+I contenuti di blog e casi studio sono stub in [src/lib/content.js](src/lib/content.js).
+Quando sara disponibile un CMS o API, sostituire gli array esportati.
 
-Support: [https://app.base44.com/support](https://app.base44.com/support)
+## Form contatti
+
+Attualmente il form in `/contatti` apre il client email con `mailto:` verso
+`info@vis-italia.it`. Per una submit server-side, sostituire `handleSubmit` in
+[src/pages/Contatti.jsx](src/pages/Contatti.jsx) con una POST a un endpoint dedicato.

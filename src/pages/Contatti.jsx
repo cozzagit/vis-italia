@@ -5,7 +5,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
-import { base44 } from '@/api/base44Client';
+
+const CONTACT_INBOX = 'info@vis-italia.it';
 
 const requestTypes = [
   'Ispezione scaffalature',
@@ -34,15 +35,21 @@ export default function Contatti() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    await base44.entities.ContactRequest.create(form);
-    await base44.integrations.Core.SendEmail({
-      to: 'info@vis-italia.it',
-      subject: `Nuova richiesta: ${form.request_type} - ${form.name}`,
-      body: `Nome: ${form.name}\nAzienda: ${form.company}\nEmail: ${form.email}\nTelefono: ${form.phone}\nTipo: ${form.request_type}\n\nMessaggio:\n${form.message}`,
-    });
+    const subject = `Nuova richiesta: ${form.request_type} - ${form.name}`;
+    const body = [
+      `Nome: ${form.name}`,
+      `Azienda: ${form.company}`,
+      `Email: ${form.email}`,
+      `Telefono: ${form.phone}`,
+      `Tipo: ${form.request_type}`,
+      '',
+      'Messaggio:',
+      form.message,
+    ].join('\n');
+    window.location.href = `mailto:${CONTACT_INBOX}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setLoading(false);
     setSubmitted(true);
   };
